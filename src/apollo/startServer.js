@@ -1,7 +1,8 @@
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer, PubSub } from 'apollo-server';
 
 function startServer({ typeDefs, resolvers }) {
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const pubSub = new PubSub();
+  const server = new ApolloServer({ typeDefs, resolvers, context: { pubSub } });
 
   server.listen().then(({ url }) => {
     console.log(`Server started at ${url}`)
